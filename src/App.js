@@ -16,6 +16,7 @@ import SearchBar from './components/SearchBar/SearchBar'
 const App = () => {
   // Create a state called `posts` to hold the array of post objects, **initializing to dummyData**.
   const [posts, setPosts] = useState(postData);
+  console.log(posts);
   // This state is the source of truth for the data inside the app. You won't be needing dummyData anymore.
   // To make the search bar work (which is stretch) we'd need another state to hold the search term.
   const [searchPosts, setSearchPosts] = useState('');
@@ -41,18 +42,18 @@ const App = () => {
      */
   };
 
-  // const searchPosts = () => {
-  //   if (!searchPosts) return posts;
-  //   return posts.filter(text => {
-  //     return text.text.toLowerCase().includes(setSearchPosts);
-  //     })
-  // }
+  const searchText = () => {
+    if (!searchPosts) return posts;
+    return posts.filter(text => {
+      return text.username.toLowerCase().includes(searchPosts);
+      })
+  }
 
   return (
     <div className='App'>
       {/* Add SearchBar and Posts here to render them */}
-      <SearchBar setSearchPosts={setSearchPosts} searchPosts={searchPosts}/>
-      <Posts posts={posts} likePost={likePost}/>
+      <SearchBar setSearchPosts={setSearchPosts}/>
+      <Posts posts={searchText()} likePost={likePost}/>
       {/* Check the implementation of each component, to see what props they require, if any! */}
     </div>
   );
